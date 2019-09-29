@@ -7,12 +7,13 @@ import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Scroller;
+
+import androidx.annotation.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +24,8 @@ import java.io.InputStream;
  * @desc
  */
 public class BigView extends View implements GestureDetector.OnGestureListener, View.OnTouchListener {
+
+    private static final String TAG = "BigView";
 
     private final Rect mRect;
     private final BitmapFactory.Options mOptions;
@@ -144,6 +147,7 @@ public class BigView extends View implements GestureDetector.OnGestureListener, 
     }
 
     // 7.处理滑动事件
+
     /**
      * @param e1        开始事件，手指按下去，开始获取坐标
      * @param e2        获取当前事件坐标
@@ -152,8 +156,9 @@ public class BigView extends View implements GestureDetector.OnGestureListener, 
      */
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+
         // 上下滑动时，mRect需要改变显示的区域
-        mRect.offset(0, (int) distanceY);
+        mRect.offset(0, Math.round(distanceY));
         // 移动时，处理到达底部和顶部的情况
         if (mRect.bottom > mImageHeight) {
             mRect.bottom = mImageHeight;
