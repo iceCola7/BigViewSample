@@ -1,0 +1,2 @@
+include ':app', ':bigviewlib'
+rootProject.name='BigViewSample'
